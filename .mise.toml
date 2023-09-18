@@ -1,0 +1,6 @@
+[tools]
+pdm = "latest"
+"pipx:black" = "latest"
+"pipx:flake8" = "latest"
+"pipx:pylint" = "latest"
+python = "3.12"
