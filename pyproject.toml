@@ -21,6 +21,10 @@ dev = [
 ]
 
 
+[project.scripts]
+1001tl = "tracklists_cli.cli:main"
+
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
