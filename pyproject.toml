@@ -1,0 +1,18 @@
+[project]
+name = "tracklists"
+version = "0.0.1"
+description = "Python library for accessing content on 1001tracklists.com."
+authors = [{ name = "Leander Tolksdorf", email = "a@b.com" }]
+dependencies = ["bs4==0.0.1", "fake-headers==1.0.2", "requests==2.23.0"]
+requires-python = ">=3.9"
+readme = "README.md"
+license = { file = "LICENSE" }
+
+[project.urls]
+Homepage = "https://github.com/leandertolksdorf/1001-tracklists-api"
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pdm]
+distribution = true
