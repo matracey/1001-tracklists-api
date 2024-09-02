@@ -11,6 +11,7 @@ The scraping is done with [BeautifulSoup](https://pypi.org/project/beautifulsoup
 ## Usage
 
 Tracklists can be loaded into `Tracklist` objects using:
+
 ```python
 from tracklists import *
 tl = Tracklist(url)
@@ -18,6 +19,7 @@ tracks = tl.tracks # A list of Track objects
 ```
 
 To explore the data available for each object, you may wish to use:
+
 ```python
 vars(x) # To see all the attributes
 help(x) # For more complete documentation
@@ -30,6 +32,6 @@ Everyone is welcome to contribute!
 Tasks which can be worked on are included in the files with TODO tags. In addition, this is the general to-do list:
 
 - [ ] Captcha handling
-    - When captcha occurs, pause scraping and redirect to solving page.
-    - or: Proxy rotation
+  - When captcha occurs, pause scraping and redirect to solving page.
+  - or: Proxy rotation
 - [ ] JSON export
