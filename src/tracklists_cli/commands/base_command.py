@@ -64,3 +64,16 @@ class BaseCommand(metaclass=ABCMeta):
         parser: ArgumentParser = s.add_parser(cls.command_name, help=cls.command_help)
 
         return cls.build_parser(parser)
+
+    # noinspection PyTypeChecker
+    @classmethod
+    @abstractmethod
+    def build_parser(cls, parser: ArgumentParser) -> ArgumentParser:
+        """
+        Builds the parser for the command.
+
+        :param parser: The argument parser.
+        """
+        cls.__subparsers__ = parser.add_subparsers(dest=cls.__subcommand_dest__)
+
+        return parser
