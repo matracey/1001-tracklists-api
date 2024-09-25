@@ -24,6 +24,16 @@ class BaseCommand(metaclass=ABCMeta):
         """
         raise NotImplementedError(BaseCommand.__abc_error_message__)
 
+    # noinspection PyPropertyDefinition
+    @property
+    @staticmethod
+    @abstractmethod
+    def command_name() -> str:
+        """
+        The name of the command.
+        """
+        raise NotImplementedError(BaseCommand.__abc_error_message__)
+
     def __init__(self, parser: ArgumentParser, **args):
         self.__args__ = args
         self.__parser__ = parser
