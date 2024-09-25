@@ -4,6 +4,7 @@ A module for the BaseCommand class.
 
 from abc import ABCMeta, abstractmethod
 from argparse import ArgumentParser
+from re import compile as comp
 from sys import exit as sysexit
 
 
@@ -77,3 +78,14 @@ class BaseCommand(metaclass=ABCMeta):
         cls.__subparsers__ = parser.add_subparsers(dest=cls.__subcommand_dest__)
 
         return parser
+
+    @staticmethod
+    def compile_re(key: str, **kwargs):
+        """
+        Compiles the regular expression pattern from the kwargs.
+
+        :param key: The key to extract the regular expression pattern from.
+        :param kwargs: The dictionary of keyword arguments.
+        :return: The compiled regular expression pattern.
+        """
+        return comp(kwargs.get(key)) if kwargs.get(key) else None
