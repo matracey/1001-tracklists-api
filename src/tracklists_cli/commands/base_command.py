@@ -4,6 +4,7 @@ A module for the BaseCommand class.
 
 from abc import ABCMeta, abstractmethod
 from argparse import ArgumentParser
+from datetime import datetime
 from re import compile as comp
 from sys import exit as sysexit
 
@@ -89,3 +90,13 @@ class BaseCommand(metaclass=ABCMeta):
         :return: The compiled regular expression pattern.
         """
         return comp(kwargs.get(key)) if kwargs.get(key) else None
+
+    @staticmethod
+    def filesafe_datetime_now() -> str:
+        """
+        Get the current datetime in a file-safe format.
+        """
+        return "".join(
+            c if (c.isalnum() or c in "._- ") else "_"
+            for c in datetime.now().isoformat()
+        )
