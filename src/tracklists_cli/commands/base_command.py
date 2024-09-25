@@ -53,3 +53,14 @@ class BaseCommand(metaclass=ABCMeta):
         if not self.__subcommand__:
             parser.print_help()
             sysexit(1)
+
+    @classmethod
+    def build_subparser(cls, s) -> ArgumentParser:
+        """
+        Creates a subparser on the given subparsers object.
+
+        :param s: The subparsers object.
+        """
+        parser: ArgumentParser = s.add_parser(cls.command_name, help=cls.command_help)
+
+        return cls.build_parser(parser)
