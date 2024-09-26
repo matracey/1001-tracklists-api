@@ -6,7 +6,7 @@ authors = [{ name = "Martin Tracey", email = "matracey@outlook.ie" }]
 requires-python = ">=3.12"
 readme = "README.md"
 license = { file = "LICENSE" }
-dependencies = []
+dependencies = ["parsel>=1.9.1"]
 
 
 [project.optional-dependencies]
