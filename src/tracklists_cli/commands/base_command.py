@@ -4,9 +4,12 @@ A module for the BaseCommand class.
 
 from abc import ABCMeta, abstractmethod
 from argparse import ArgumentParser
-from datetime import datetime
+from json import dumps
 from re import compile as comp
 from sys import exit as sysexit
+from typing import Any, Optional
+
+from ..command_arguments import OutputArgument
 
 
 class BaseCommand(metaclass=ABCMeta):
@@ -91,12 +94,34 @@ class BaseCommand(metaclass=ABCMeta):
         """
         return comp(kwargs.get(key)) if kwargs.get(key) else None
 
-    @staticmethod
-    def filesafe_datetime_now() -> str:
+    @classmethod
+    def handle_output(
+        cls,
+        output: Optional[Any] = None,
+        args: OutputArgument = None,
+    ):
         """
-        Get the current datetime in a file-safe format.
+        Handle the output of the command.
+
+        :param output: The output to write.
+        :param write_file: A boolean flag to write the output to a file.
+        :param output_file: The name of the file to write the output to.
         """
-        return "".join(
-            c if (c.isalnum() or c in "._- ") else "_"
-            for c in datetime.now().isoformat()
+        if not args:
+            args = OutputArgument()
+        args.command_name = cls.command_name
+
+        str_out = (
+            dumps(output, indent=2, ensure_ascii=False)
+            if not isinstance(output, str)
+            else output
         )
+
+        if args.write_file and not args.output_file:
+            args.output_file = args.default_output_file
+
+        if args.output_file:
+            with open(args.output_file, "w", encoding="utf-8") as f:
+                f.write(str_out)
+        else:
+            print(str_out)
