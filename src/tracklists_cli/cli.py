@@ -33,6 +33,7 @@ def __parse_args_and_invoke__(
     module: BaseCommand,
     parser: Optional[ArgumentParser] = None,
     args: Optional[Namespace] = None,
+    include_root=True,
 ):
     """
     Invokes the provided module with the provided arguments using the run_command function. If no
@@ -43,19 +44,23 @@ def __parse_args_and_invoke__(
     :return: None
     """
     if args is None:
-        parser, args = __parse_args__(module)
+        parser, args = __parse_args__(module, include_root=include_root)
     module(parser, **vars(args))
 
 
-def __parse_args__(module: BaseCommand) -> Tuple[ArgumentParser, Namespace]:
+def __parse_args__(
+    module: BaseCommand, include_root=True
+) -> Tuple[ArgumentParser, Namespace]:
     """
     Parses the arguments for the provided module using the module's build_parser function.
 
     :param module: The module to parse arguments for. Should have a build_parser function
     :return: The parsed arguments as a Namespace
     """
-    parser: ArgumentParser = __build_root_parser__(
-        module.command_name, module.command_help
+    parser: ArgumentParser = (
+        __build_root_parser__(module.command_name, module.command_help)
+        if include_root
+        else ArgumentParser()
     )
     module.build_parser(parser)
     return parser, parser.parse_args()
