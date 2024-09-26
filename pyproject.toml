@@ -1,6 +1,6 @@
 [project]
 name = "1001-tracklists-api"
-version = "0.0.1"
+version = "0.0.2"
 description = "An unofficial API to create Python objects with data from 1001tracklists.com."
 authors = [{ name = "Martin Tracey", email = "matracey@outlook.ie" }]
 requires-python = ">=3.12"
