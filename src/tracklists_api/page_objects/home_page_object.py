@@ -22,6 +22,7 @@ class HomePageObject(BasePageObject):
     __sidebar_section_titles_selector__: str = (
         f"{__details_selector__} > {__summary_text_selector__}"
     )
+    __wrapped_row_class_selector__: str = ".wRow"
 
     def get_sidebar_sections(self) -> Iterator[str]:
         """
@@ -31,6 +32,24 @@ class HomePageObject(BasePageObject):
             self.__sidebar_section_titles_selector__
         ).getall():
             yield section.strip()
+
+    def __fetch_sidebar_sections__(self) -> dict[str, list[TracklistResult]]:
+        """
+        Fetches all of the sidebar sections and the tracklists associated with them.
+
+        :return: A dict of sidebar sections and associated TracklistResult objects.
+        """
+        sections = self._selector_.css(self.__details_selector__)
+        result = {}
+
+        for section in sections:
+            section_name = section.css(self.__summary_text_selector__).get().strip()
+            result[section_name] = [
+                self.__parse_tracklist_row__(tracklist_row)
+                for tracklist_row in section.css(self.__wrapped_row_class_selector__)
+            ]
+
+        return result
 
     def __parse_tracklist_row__(self, tracklist_row: Selector) -> TracklistResult:
         """
