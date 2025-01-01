@@ -23,3 +23,8 @@ def test_dehumanize_should_handle_billion_symbols():
 def test_dehumanize_should_handle_commas():
     assert dehumanize("1,000") == str(1_000)
     assert dehumanize("1,000,000") == str(1_000_000)
+
+
+def test_dehumanize_should_not_change_unhumanized_numbers():
+    assert dehumanize("100") == str(100)
+    assert dehumanize("1.23") == str(1.23)
