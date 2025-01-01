@@ -20,6 +20,11 @@ dev = [
     "pdm-bump~=0.9.9.post1",
 ]
 
+test = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+]
+
 
 [project.scripts]
 1001tl = "tracklists_cli.cli:main"
