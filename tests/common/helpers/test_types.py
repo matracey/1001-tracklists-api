@@ -28,3 +28,10 @@ def test_dehumanize_should_handle_commas():
 def test_dehumanize_should_not_change_unhumanized_numbers():
     assert dehumanize("100") == str(100)
     assert dehumanize("1.23") == str(1.23)
+
+
+def test_dehumanize_should_raise_error_for_unknown_units():
+    with pytest.raises(ValueError, match="Unknown human-readable number type: 'x'"):
+        dehumanize("10x")
+    with pytest.raises(ValueError, match="Unknown human-readable number type: '!"):
+        dehumanize("10!")
