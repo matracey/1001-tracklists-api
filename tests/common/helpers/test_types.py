@@ -13,3 +13,8 @@ def test_dehumanize_should_handle_thousand_symbols():
 def test_dehumanize_should_handle_million_symbols():
     assert dehumanize("2m") == str(2_000_000)
     assert dehumanize("2.5m") == str(2_500_000)
+
+
+def test_dehumanize_should_handle_billion_symbols():
+    assert dehumanize("3b") == str(3_000_000_000)
+    assert dehumanize("3.5b") == str(3_500_000_000)
