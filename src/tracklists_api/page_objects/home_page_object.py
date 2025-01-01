@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Any, Iterator, Literal
 from urllib.parse import urljoin
 
 from parsel import Selector
@@ -32,6 +32,21 @@ class HomePageObject(BasePageObject):
             self.__sidebar_section_titles_selector__
         ).getall():
             yield section.strip()
+
+    def get_section_lists(
+        self, mode: Literal["json", "python"] = "python"
+    ) -> dict[str, list[dict[str, Any]]]:
+        """
+        Gets all of the sidebar sections and the tracklists associated with them.
+
+        :param mode: The mode to return the data in. Can be either "json" or "python".
+
+        :return: A dict of sidebar sections and their associated tracklists.
+        """
+        return {
+            section: [tracklist.model_dump(mode=mode) for tracklist in tracklists]
+            for section, tracklists in self.__fetch_sidebar_sections__().items()
+        }
 
     def __fetch_sidebar_sections__(self) -> dict[str, list[TracklistResult]]:
         """
